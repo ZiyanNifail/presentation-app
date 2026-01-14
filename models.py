@@ -17,6 +17,10 @@ class Presentation(db.Model):
 
     presentationID = db.Column(db.Integer, primary_key=True, autoincrement=True)
     userID = db.Column(db.Integer, db.ForeignKey('users.userID'), nullable=False)
-    videoFile = db.Column(db.String(255), nullable=False) # Stores the filename/path
+    videoFile = db.Column(db.String(255), nullable=False)
     uploadDate = db.Column(db.DateTime, default=datetime.utcnow)
+    feedback = db.Column(db.Text, nullable=True) 
+    score = db.Column(db.Integer, nullable=True)
+    # -------------------
+
     student = db.relationship('User', backref=db.backref('presentations', lazy=True))

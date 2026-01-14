@@ -1,7 +1,8 @@
 from flask import Flask
 from database import db
 from auth import auth_bp
-from presentation import presentation_bp  # <--- NEW IMPORT 1
+from presentation import presentation_bp
+from analysis import analysis_bp
 
 def create_app():
     app = Flask(__name__)
@@ -19,6 +20,8 @@ def create_app():
     app.register_blueprint(auth_bp, url_prefix='/auth')
     
     app.register_blueprint(presentation_bp, url_prefix='/api') # <--- NEW REGISTRATION 2
+
+    app.register_blueprint(analysis_bp, url_prefix='/api')
 
     return app
 
