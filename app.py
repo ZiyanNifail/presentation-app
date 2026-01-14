@@ -1,29 +1,31 @@
 from flask import Flask
 from database import db
 from auth import auth_bp
+from presentation import presentation_bp  # <--- NEW IMPORT 1
 
 def create_app():
     app = Flask(__name__)
 
-    # Database Configuration (Update your password here if needed!)
-    # Note: Using the same connection string you used in your test script
+    
     app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:Nirvana2003.@localhost/presentation_app'
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    
+    app.config['MAX_CONTENT_LENGTH'] = 30 * 1024 * 1024 
 
     # Initialize extensions
     db.init_app(app)
 
-    # Register the Blueprints (Connects auth.py to the main app)
+    # Register Blueprints
     app.register_blueprint(auth_bp, url_prefix='/auth')
+    
+    app.register_blueprint(presentation_bp, url_prefix='/api') # <--- NEW REGISTRATION 2
 
     return app
 
 if __name__ == '__main__':
     app = create_app()
     
-    # Create tables if they don't exist yet (just in case)
     with app.app_context():
         db.create_all()
         
-    # Run the server!
     app.run(debug=True)
