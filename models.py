@@ -19,8 +19,14 @@ class Presentation(db.Model):
     userID = db.Column(db.Integer, db.ForeignKey('users.userID'), nullable=False)
     videoFile = db.Column(db.String(255), nullable=False)
     uploadDate = db.Column(db.DateTime, default=datetime.utcnow)
-    feedback = db.Column(db.Text, nullable=True) 
+    
+    # Existing Analysis Columns
+    feedback = db.Column(db.Text, nullable=True)
     score = db.Column(db.Integer, nullable=True)
-    # -------------------
+
+    # --- NEW COLUMNS FOR AUDIO ---
+    transcript = db.Column(db.Text, nullable=True)         # Stores what they said
+    words_per_minute = db.Column(db.Integer, nullable=True) # Stores how fast they said it
+    # -----------------------------
 
     student = db.relationship('User', backref=db.backref('presentations', lazy=True))

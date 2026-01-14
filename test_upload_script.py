@@ -8,7 +8,7 @@ data = {
     'userID': '1'
 }
 
-video_path = r"Downloads/simple.mp4" 
+video_path = r"C:\Users\USER\Videos\test.mp4" 
 
 try:
     # Open the file in binary mode
